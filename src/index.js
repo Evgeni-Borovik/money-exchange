@@ -1,8 +1,5 @@
 // PLEASE DON'T change function name
-// module.exports = function makeExchange(currency) {
-    var exchange = function makeExchange(currency) {
-    // Your code goes here!
-    // Return an object containing the minimum number of coins needed to make change
+module.exports = function makeExchange(currency) {
     var coins = {
         H: 50,
         Q: 25,
@@ -10,17 +7,24 @@
         N: 5,
         P: 1
     };
-    var amount = currency;
+
     var output = {};
-    for (var key in coins) {
-        // этот код будет вызван для каждого свойства объекта
-        var div_result = Math.floor(amount / coins[key]);
-        if (div_result > 0) {
-            amount = amount - coins[key] * div_result;
-            output[key] = div_result;
-            console.log(output);
+    if (currency <= 0) {
+        return output;
+    }
+    else if (currency > 10000) {
+        output.error = "You are rich, my friend! We don't have so much coins for exchange";
+        return output;
+    }
+    else {
+        var amount = currency;
+        for (var key in coins) {
+            var div_result = Math.floor(amount / coins[key]);
+            if (div_result > 0) {
+                amount = amount - coins[key] * div_result;
+                output[key] = div_result;
+            }
         }
+        return output;
     }
 }
-
-exchange(100);
